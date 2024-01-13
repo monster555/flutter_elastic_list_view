@@ -1,16 +1,50 @@
-# flutter_elastic_list_view
+# ElasticListView
 
-A new Flutter project.
+## Description
 
-## Getting Started
+`ElasticListView` is a drop-in replacement for Flutter's `ListView.builder`, providing an elastic overscroll effect.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+https://github.com/monster555/flutter_elastic_list_view/assets/32662133/972431f2-d0b1-4df5-8b36-1888ab2f8ddc
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+
+- **Elastic Overscroll Effect**: `ElasticListView` enhances the user experience by providing an elastic overscroll effect.
+- **Drag to Scroll**: Adds the drag to scroll behavior by default, providing a smooth scrolling experience. This can be disabled by setting the `enableDragScrolling` property to false.
+- **Optimized Performance**: Leverages the performance optimizations of the standard `ListView.builder`, ensuring excellent performance.
+
+## Extended Functionality with Full Compatibility
+
+`ElasticListView` maintains the exact same properties as the standard `ListView.builder`, ensuring full compatibility and making it a seamless replacement. In addition, it introduces new properties to control the elastic effect, offering enhanced functionality and customization options beyond the standard `ListView.builder`.
+
+## New Properties
+
+Here are the new properties introduced by `ElasticListView`:
+
+- `curve`: The curve to apply when animating the elastic effect. Defaults to `Curves.easeOut`.
+- `animationDuration`: The duration of the overscroll bounce animation. Defaults to `Duration(milliseconds: 200)`.
+- `enableDragScrolling`: Whether to enable drag scrolling. Defaults to `true`.
+- `elasticityFactor`: The factor by which the scroll view overscrolls. Defaults to `4`.
+
+Each of these properties allows you to customize the behavior of the elastic effect in `ElasticListView`.
+
+
+## Usage
+
+To use `ElasticListView`, simply replace your existing `ListView.builder` with `ElasticListView`. All the properties are the same, ensuring full compatibility.
+
+```dart
+ElasticListView(
+  itemCount: 10,
+  itemBuilder: (context, index) {
+    return ListTile(
+      title: Text('Item $index'),
+    );
+  },
+)
+```
+
+
+## Contribution
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to create a pull request.
