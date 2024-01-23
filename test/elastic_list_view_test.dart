@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_elastic_list_view/elastic_list_view.dart';
+import 'package:flutter_elastic_list_view/flutter_elastic_list_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The main entry point for running widget tests.
