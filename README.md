@@ -4,7 +4,7 @@
 
 `ElasticListView` is a drop-in replacement for Flutter's `ListView`, providing an elastic overscroll effect. It adds the `.builder` and `.separated` constructors as well as the standard `ListView` constructor. To migrate to `ElasticListView`, simply add the `Elastic` prefix to any existing `ListView` widget.
 
-https://github.com/monster555/flutter_elastic_list_view/assets/32662133/bbcdc225-b046-4924-af0b-2d80643988f2
+![ElasticListView Demo](https://github.com/monster555/flutter_elastic_list_view/assets/32662133/c6a0e533-2641-4f7a-b313-ab427aba3f5e)
 
 ## Features
 
