@@ -1,4 +1,4 @@
-name: Flutter Code Quality
+name: Flutter Code Quality and Testing
 
 # Controls when the workflow will run
 on:
@@ -38,6 +38,9 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
+
+      - name: Run Flutter tests
+        run: flutter test
 
       - name: Lint analysis
         run: flutter analyze
