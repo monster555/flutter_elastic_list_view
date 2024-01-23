@@ -1,6 +1,6 @@
 {
-    "name": "flutter_elastic_list_view",
-    "short_name": "flutter_elastic_list_view",
+    "name": "example",
+    "short_name": "example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

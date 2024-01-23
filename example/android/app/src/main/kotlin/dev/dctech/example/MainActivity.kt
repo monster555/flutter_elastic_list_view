@@ -1,4 +1,4 @@
-package com.example.flutter_elastic_list_view
+package dev.dctech.example
 
 import io.flutter.embedding.android.FlutterActivity
 
