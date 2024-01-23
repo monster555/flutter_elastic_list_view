@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_elastic_list_view/elastic_list_view.dart';
+import 'package:flutter_elastic_list_view/flutter_elastic_list_view.dart';
 
 class ElasticListViewSeparatedExample extends StatelessWidget {
   const ElasticListViewSeparatedExample({super.key});

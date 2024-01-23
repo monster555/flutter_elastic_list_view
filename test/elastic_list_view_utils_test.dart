@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter_elastic_list_view/elastic_list_view.dart';
+import 'package:flutter_elastic_list_view/flutter_elastic_list_view.dart';
 import 'package:flutter_elastic_list_view/src/utils/elastic_list_view_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
