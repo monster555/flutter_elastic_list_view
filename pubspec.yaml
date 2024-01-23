@@ -1,8 +1,16 @@
 name: flutter_elastic_list_view
-description: "A new Flutter project."
-publish_to: 'none'
+description: "Elastic ListView for Flutter"
+repository: https://github.com/monster555/flutter_elastic_list_view
+version: 0.0.1
+homepage: https://github.com/monster555/flutter_elastic_list_view
 
-version: 1.0.0+1
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  windows:
+  web:
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -14,9 +22,10 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  dart_code_metrics: ^5.7.3
+  
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^3.0.1
 
 flutter:
