@@ -1,0 +1,46 @@
+name: Flutter Code Quality
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint_and_format:
+    name: "Lint and Format"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.4.2
+
+      - name: Setup Java and Flutter
+        uses: actions/setup-java@v3.4.1
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        
+        with:
+          channel: stable
+
+      - name: Cache dependencies
+        uses: actions/cache@v3.0.8
+        with:
+          path: |
+            $PUB_CACHE
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Lint analysis
+        run: flutter analyze
+
+      - name: Check Dart formatting
+        run: dart format --set-exit-if-changed .
