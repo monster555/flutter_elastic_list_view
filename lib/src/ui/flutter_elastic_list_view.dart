@@ -452,8 +452,6 @@ class ElasticListViewState extends State<ElasticListView>
   /// Getter for the current elasticity factor.
   double get elasticity => _elasticity;
 
-  ScrollController get scrollController => _scrollController;
-
   @override
   void initState() {
     super.initState();
@@ -486,87 +484,87 @@ class ElasticListViewState extends State<ElasticListView>
       : EdgeInsets.symmetric(
           horizontal: (elasticity - 1) * widget.elasticityFactor);
 
+  /// Getter method to retrieve the appropriate [ScrollBehavior] based on the configuration of the widget.
+  /// If `enableDragScrolling` is true, it returns a [DragScrollBehavior], otherwise,
+  /// it returns the default [ScrollBehavior].
+  ScrollBehavior get _scrollBehavior => widget.enableDragScrolling
+      ? DragScrollBehavior()
+      : const ScrollBehavior();
   @override
   Widget build(BuildContext context) {
-    return widget.separatorBuilder != null
-        ? ScrollConfiguration(
-            behavior: widget.enableDragScrolling
-                ? DragScrollBehavior()
-                : const ScrollBehavior(),
-            child: NotificationListener<UserScrollNotification>(
-              onNotification: _notificationHandler,
-              child: ListView.separated(
-                scrollDirection: widget.scrollDirection,
-                reverse: widget.reverse,
-                controller: _scrollController,
-                primary: widget.primary,
-                physics: widget.physics,
-                shrinkWrap: widget.shrinkWrap,
-                padding: widget.padding,
-                itemCount: widget.itemCount!,
-                itemBuilder: (context, index) {
-                  return AnimatedPadding(
-                    duration: widget.animationDuration,
-                    curve: widget.curve,
-                    padding: _padding,
-                    child: widget.itemBuilder(context, index),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return AnimatedPadding(
-                    duration: widget.animationDuration,
-                    curve: widget.curve,
-                    padding: _padding,
-                    child: widget.separatorBuilder!(context, index),
-                  );
-                },
-                addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
-                addRepaintBoundaries: widget.addRepaintBoundaries,
-                addSemanticIndexes: widget.addSemanticIndexes,
-                cacheExtent: widget.cacheExtent,
-                dragStartBehavior: widget.dragStartBehavior,
-                keyboardDismissBehavior: widget.keyboardDismissBehavior,
-                restorationId: widget.restorationId,
-                clipBehavior: widget.clipBehavior,
-              ),
-            ),
+    final listView = widget.separatorBuilder != null
+        ? ListView.separated(
+            scrollDirection: widget.scrollDirection,
+            reverse: widget.reverse,
+            controller: _scrollController,
+            primary: widget.primary,
+            physics: widget.physics,
+            shrinkWrap: widget.shrinkWrap,
+            padding: widget.padding,
+            itemCount: widget.itemCount!,
+            itemBuilder: _itemBuilder,
+            separatorBuilder: _separatorBuilder,
+            addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
+            addRepaintBoundaries: widget.addRepaintBoundaries,
+            addSemanticIndexes: widget.addSemanticIndexes,
+            cacheExtent: widget.cacheExtent,
+            dragStartBehavior: widget.dragStartBehavior,
+            keyboardDismissBehavior: widget.keyboardDismissBehavior,
+            restorationId: widget.restorationId,
+            clipBehavior: widget.clipBehavior,
           )
-        : ScrollConfiguration(
-            behavior: widget.enableDragScrolling
-                ? DragScrollBehavior()
-                : const ScrollBehavior(),
-            child: NotificationListener<UserScrollNotification>(
-              onNotification: _notificationHandler,
-              child: ListView.builder(
-                scrollDirection: widget.scrollDirection,
-                reverse: widget.reverse,
-                controller: _scrollController,
-                primary: widget.primary,
-                physics: widget.physics,
-                shrinkWrap: widget.shrinkWrap,
-                padding: widget.padding,
-                itemExtent: widget.itemExtent,
-                itemCount: widget.itemCount,
-                itemBuilder: (context, index) {
-                  return AnimatedPadding(
-                    duration: widget.animationDuration,
-                    curve: widget.curve,
-                    padding: _padding,
-                    child: widget.itemBuilder(context, index),
-                  );
-                },
-                addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
-                addRepaintBoundaries: widget.addRepaintBoundaries,
-                addSemanticIndexes: widget.addSemanticIndexes,
-                cacheExtent: widget.cacheExtent,
-                semanticChildCount: widget.semanticChildCount,
-                dragStartBehavior: widget.dragStartBehavior,
-                keyboardDismissBehavior: widget.keyboardDismissBehavior,
-                restorationId: widget.restorationId,
-                clipBehavior: widget.clipBehavior,
-              ),
-            ),
+        : ListView.builder(
+            scrollDirection: widget.scrollDirection,
+            reverse: widget.reverse,
+            controller: _scrollController,
+            primary: widget.primary,
+            physics: widget.physics,
+            shrinkWrap: widget.shrinkWrap,
+            padding: widget.padding,
+            itemExtent: widget.itemExtent,
+            itemCount: widget.itemCount,
+            itemBuilder: _itemBuilder,
+            addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
+            addRepaintBoundaries: widget.addRepaintBoundaries,
+            addSemanticIndexes: widget.addSemanticIndexes,
+            cacheExtent: widget.cacheExtent,
+            semanticChildCount: widget.semanticChildCount,
+            dragStartBehavior: widget.dragStartBehavior,
+            keyboardDismissBehavior: widget.keyboardDismissBehavior,
+            restorationId: widget.restorationId,
+            clipBehavior: widget.clipBehavior,
           );
+
+    return ScrollConfiguration(
+      behavior: _scrollBehavior,
+      child: NotificationListener<UserScrollNotification>(
+        onNotification: _notificationHandler,
+        child: listView,
+      ),
+    );
+  }
+
+  /// Builder method for creating a separator widget using the provided `separatorBuilder`.
+  /// If no `separatorBuilder` is provided, it uses the default `itemBuilder` for separators.
+  Widget _separatorBuilder(BuildContext context, int index) =>
+      _itemBuilder(context, index, true);
+
+  /// Builder method for creating an item widget at the specified index.
+  /// If [isSeparator] is true, it uses the `separatorBuilder`; otherwise, it uses the `itemBuilder`.
+  Widget _itemBuilder(BuildContext context, int index,
+      [bool isSeparator = false]) {
+    // Determine whether to use separatorBuilder or itemBuilder based on isSeparator flag.
+    final child = isSeparator
+        ? widget.separatorBuilder!(context, index)
+        : widget.itemBuilder(context, index);
+
+    // Wrap the child in AnimatedPadding with specified animation properties.
+    return AnimatedPadding(
+      duration: widget.animationDuration,
+      curve: widget.curve,
+      padding: _padding,
+      child: child,
+    );
   }
 
   /// Handles scroll events to provide elastic overscroll behavior.
