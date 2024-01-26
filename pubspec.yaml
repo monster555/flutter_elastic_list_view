@@ -1,7 +1,7 @@
 name: flutter_elastic_list_view
 description: "ElasticListView: A Flutter package providing elastic overscroll effect in ListView.builder with enhanced functionality and customization."
 repository: https://github.com/monster555/flutter_elastic_list_view
-version: 0.0.5+1
+version: 0.0.5+2
 homepage: https://github.com/monster555/flutter_elastic_list_view
 
 platforms:
